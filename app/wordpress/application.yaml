@@ -1,21 +1,26 @@
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: wordpress-test
-  namespace: argocd
-spec:
-  project: default
-  source:
-    repoURL: https://github.com/mon-repo/mon-application.git  # URL de ton dépôt Git
-    targetRevision: HEAD
-    path: wordpress-app  # chemin relatif dans ton dépôt Git où se trouve ton Chart.yaml
-    helm:
-      valueFiles:
-        - values.yaml  # Fichier de valeurs Helm pour personnaliser le chart
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: wordpress  # Namespace où WordPress sera déployé
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
+# apiVersion: argoproj.io/v1alpha1
+# kind: Application
+# metadata:
+#   name: wordpress-test
+#   namespace: argocd
+# spec:
+#   project: default
+#   source:
+#     repoURL: https://charts.bitnami.com/bitnami  # URL du repo Helm Bitnami
+#     targetRevision: 24.1.16  # Version du chart Helm que vous souhaitez déployer
+#     chart: wordpress  # Le nom du chart Helm dans le repo
+#   destination:
+#     server: https://kubernetes.default.svc
+#     namespace: wordpress  # Namespace où WordPress sera déployé
+#   syncPolicy:
+#     automated:
+#       prune: true
+#       selfHeal: true
+apiVersion: v2
+name: wordpress-test
+type: Application
+version: 0.1.0
+dependencies:  
+  - name: wordpress    
+    version: 24.1.16    
+    repository: https://charts.bitnami.com/bitnami/wordpress
