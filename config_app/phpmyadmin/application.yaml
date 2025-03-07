@@ -1,0 +1,27 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: phpmyadmin
+  namespace: argocd
+spec:
+  project: dev-apps
+  source:
+    repoURL: https://charts.bitnami.com/bitnami  # URL du repo Helm Bitnami
+    targetRevision: 17.0.3  # Version du chart Helm que vous souhaitez déployer
+    chart: phpmyadmin  # Le nom du chart Helm dans le repo
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: phpmyadmin  # Namespace où WordPress sera déployé 
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - Validate=true
+      - PruneLast=false
+      - RespectIgnoreDifferences=true
+      - Replace=false
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true
+      - ServerSideApply=true

@@ -1,0 +1,57 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: phpmyadmin
+  namespace: argocd
+spec:
+  project: dev-apps
+  source:
+    repoURL: https://github.com/GuillaumeLangevin2212/argocd-test.git
+    targetRevision: HEAD
+    path: config_app/phpmyadmin
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: phpmyadmin
+
+# apiVersion: argoproj.io/v1alpha1
+# kind: ApplicationSet
+# metadata:
+#   name: cert-manager
+#   namespace: argocd
+# spec:
+#   goTemplate: true
+#   goTemplateOptions: ["missingkey=error"]
+#   generators:
+#   - clusters: {}
+#       # values:
+#       #   loadBalancerIP: '10.{{index .metadata.annotations "loadBalancerIPSubgroup"}}.0.100'
+#   template:
+#     metadata:
+#       name: 'test-cert-manager'
+#       finalizers: []
+#     spec:
+#       project: default
+#       destination:
+#         server: https://kubernetes.default.svc
+#         namespace: cert-manager
+#       source:
+#         repoURL: https://charts.jetstack.io
+#         targetRevision: 1.16.*
+#         chart: cert-manager
+#         helm:
+#           releaseName: 'test1-cert-manager'
+#           valuesObject:
+#             crds:
+#               enabled: true
+#       syncPolicy:
+#         automated:
+#           prune: true
+#           selfHeal: true
+#         syncOptions:
+#           - Validate=true
+#           - PruneLast=false
+#           - RespectIgnoreDifferences=true
+#           - Replace=false
+#           - ApplyOutOfSyncOnly=true
+#           - CreateNamespace=true
+#           - ServerSideApply=true
