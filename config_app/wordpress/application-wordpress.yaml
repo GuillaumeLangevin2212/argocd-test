@@ -22,11 +22,10 @@ spec:
             name: wordpress_db
             user: wordpress_user
             password: wordpress_password
-      
   destination:
     server: https://kubernetes.default.svc
     namespace: wordpress  # Namespace où WordPress sera déployé
   syncPolicy:
     automated:
-      prune: true
+      prune: false
       selfHeal: true
