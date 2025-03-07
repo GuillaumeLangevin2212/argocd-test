@@ -11,6 +11,7 @@ spec:
     targetRevision: 23.0.11  # Version du chart Helm que vous souhaitez déployer
     chart: wordpress  # Le nom du chart Helm dans le repo
     helm: 
+      releaseName: wordpress-test
       values: |
         wordpressUsername: admin
         wordpressPassword: admin_password
