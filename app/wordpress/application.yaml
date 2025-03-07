@@ -1,26 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: wordpress-test
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/GuillaumeLangevin2212/argocd-test.git
+    targetRevision: HEAD
+    path: config_app/wordpress
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: wordpress
+
+
 # apiVersion: argoproj.io/v1alpha1
 # kind: Application
 # metadata:
-#   name: wordpress-test
-#   namespace: argocd
+#   name: wordpress-de-fou
 # spec:
-#   project: default
-#   source:
-#     repoURL: https://charts.bitnami.com/bitnami  # URL du repo Helm Bitnami
-#     targetRevision: 24.1.16  # Version du chart Helm que vous souhaitez déployer
-#     chart: wordpress  # Le nom du chart Helm dans le repo
 #   destination:
+#     namespace: wordpress
 #     server: https://kubernetes.default.svc
-#     namespace: wordpress  # Namespace où WordPress sera déployé
-#   syncPolicy:
-#     automated:
-#       prune: true
-#       selfHeal: true
-apiVersion: v2
-name: wordpress-test
-type: Application
-version: 0.1.0
-dependencies:  
-  - name: wordpress    
-    version: 24.1.16    
-    repository: https://charts.bitnami.com/bitnami/wordpress
+#   source:
+#     path: ''
+#     repoURL: https://charts.bitnami.com/bitnami
+#     targetRevision: 24.1.17
+#     chart: wordpress
+#   sources: []
+#   project: default
