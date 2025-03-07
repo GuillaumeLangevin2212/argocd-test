@@ -10,6 +10,19 @@ spec:
     repoURL: https://charts.bitnami.com/bitnami  # URL du repo Helm Bitnami
     targetRevision: 23.0.11  # Version du chart Helm que vous souhaitez déployer
     chart: wordpress  # Le nom du chart Helm dans le repo
+    helm: 
+      values: |
+        wordpressUsername: admin
+        wordpressPassword: admin_password
+        wordpressEmail: admin@example.com
+        wordpressBlogName: My Custom Blog
+        mariadb:
+          rootPassword: mariadb_root_password
+          db:
+            name: wordpress_db
+            user: wordpress_user
+            password: wordpress_password
+      
   destination:
     server: https://kubernetes.default.svc
     namespace: wordpress  # Namespace où WordPress sera déployé
