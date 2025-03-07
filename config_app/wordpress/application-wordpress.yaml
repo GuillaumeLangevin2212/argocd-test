@@ -27,5 +27,13 @@ spec:
     namespace: wordpress  # Namespace où WordPress sera déployé
   syncPolicy:
     automated:
-      prune: false
+      prune: true
       selfHeal: true
+    syncOptions:
+      - Validate=true
+      - PruneLast=false
+      - RespectIgnoreDifferences=true
+      - Replace=false
+      - ApplyOutOfSyncOnly=true
+      - CreateNamespace=true
+      - ServerSideApply=true
